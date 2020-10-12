@@ -12,12 +12,16 @@ char get_command()
       command = tolower(command);
       if (command == '?' || command == '=' || command == '+' ||
           command == '-' || command == '*' || command == '/' ||
-          command == 'x' || command == 'q' ) waiting = false;
+          command == 'x' || command == 's' || command == 'a' ||
+          command == 'q' ) waiting = false;
 
 
       else {
          std::cout << "Please enter a valid command:"   << std::endl
               << "[?]push to stack   [=]print top" << std::endl
+              << "[x]to swap two topmost elements" << std::endl
+              << "[s]to sum all elements of the stack, clear it and insert the sum" << std::endl
+              << "[a]to clear the stack and insert the average"
               << "[+] [-] [*] [/]   are arithmetic operations" << std::endl
               << "[Q]uit." << std::endl;
       }
@@ -36,7 +40,10 @@ Uses: The class Stack.
 */
 
 {
-   double p, q;
+   double p = 0;
+   double q = 0;
+   int count = 0;
+
    switch (command) {
    case '?':
       std::cout << "Enter a real number: " << std::flush;
@@ -141,7 +148,41 @@ Uses: The class Stack.
          }
       }
       break;
-    case 'q':
+
+   case 's':
+      if (numbers.top(p) == underflow)
+         std::cout << "Stack empty" << std::endl;
+      else
+      {
+         while (!numbers.empty())
+         {
+            q += p;
+            numbers.pop();
+            numbers.top(p);
+         }
+
+         numbers.push(q);
+      }
+      break;
+
+   case 'a':
+      if (numbers.top(p) == underflow)
+         std::cout << "Stack empty" << std::endl;
+      else
+      {
+         while (!numbers.empty())
+         {
+            count++;
+            q += p;
+            numbers.pop();
+            numbers.top(p);
+         }
+
+         numbers.push(q/count);
+      }
+      break;
+
+   case 'q':
       std::cout << "Calculation finished.\n";
       return false;
    }
