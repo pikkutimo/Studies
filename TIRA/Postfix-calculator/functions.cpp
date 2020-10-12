@@ -12,6 +12,7 @@ char get_command()
       command = tolower(command);
       if (command == '?' || command == '=' || command == '+' ||
           command == '-' || command == '*' || command == '/' ||
+          command == '%' || command == '^' || command == 'v' ||
           command == 'x' || command == 's' || command == 'a' ||
           command == 'q' ) waiting = false;
 
@@ -23,6 +24,7 @@ char get_command()
               << "[s]to sum all elements of the stack, clear it and insert the sum" << std::endl
               << "[a]to clear the stack and insert the average"
               << "[+] [-] [*] [/]   are arithmetic operations" << std::endl
+              << "[%] [^] [v] are modulo, exponent and square" << std::endl
               << "[Q]uit." << std::endl;
       }
    }
@@ -114,7 +116,7 @@ Uses: The class Stack.
       break;
 
    case '/':
-       if (numbers.top(p) == underflow)
+      if (numbers.top(p) == underflow)
          std::cout << "Stack empty" << std::endl;
       else {
          numbers.pop();
@@ -128,6 +130,59 @@ Uses: The class Stack.
             if (numbers.push(q / p) == overflow)
                std::cout << "Warning: Stack full, lost result" << std::endl;
          }
+      }
+      break;
+
+   case '%':
+      if (numbers.top(p) == underflow)
+         std::cout << "Stack empty" << std::endl;
+      else {
+         numbers.pop();
+         if (numbers.top(q) == underflow) {
+            std::cout << "Stack has just one entry" << std::endl;
+            numbers.push(p);
+         }
+
+         else {
+            numbers.pop();
+            count = q / p;
+            q = q - (count * p);
+            if (numbers.push(q) == overflow)
+               std::cout << "Warning: Stack full, lost result" << std::endl;
+         }
+      }
+      break;
+
+   case '^':
+      if (numbers.top(p) == underflow)
+         std::cout << "Stack empty" << std::endl;
+      else {
+         numbers.pop();
+         if (numbers.top(q) == underflow) {
+            std::cout << "Stack has just one entry" << std::endl;
+            numbers.push(p);
+         }
+
+         else {
+            numbers.pop();
+            q = pow(p, q);
+            if (numbers.push(q) == overflow)
+               std::cout << "Warning: Stack full, lost result" << std::endl;
+         }
+      }
+      break;
+
+   case 'v':
+      if (numbers.top(p) == underflow)
+      {
+         std::cout << "Stack empty" << std::endl;
+      }
+      else
+      {
+         numbers.pop();
+         q = sqrt(p);
+         if (numbers.push(q) == overflow)
+               std::cout << "Warning: Stack full, lost result" << std::endl;
       }
       break;
 

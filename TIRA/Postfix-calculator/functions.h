@@ -4,6 +4,7 @@
 #include "stack.h"
 #include <iostream>
 #include <cctype>
+#include <cmath>
 
 char get_command();
 bool do_command(char command, Stack &numbers);
