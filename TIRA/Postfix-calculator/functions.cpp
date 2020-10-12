@@ -12,7 +12,7 @@ char get_command()
       command = tolower(command);
       if (command == '?' || command == '=' || command == '+' ||
           command == '-' || command == '*' || command == '/' ||
-          command == 'q' ) waiting = false;
+          command == 'x' || command == 'q' ) waiting = false;
 
 
       else {
@@ -70,8 +70,77 @@ Uses: The class Stack.
       }
       break;
 
-   //   Add options for further user commands.
+   case '-':
+       if (numbers.top(p) == underflow)
+         std::cout << "Stack empty" << std::endl;
+      else {
+         numbers.pop();
+         if (numbers.top(q) == underflow) {
+            std::cout << "Stack has just one entry" << std::endl;
+            numbers.push(p);
+         }
 
+         else {
+            numbers.pop();
+            if (numbers.push(q - p) == overflow)
+               std::cout << "Warning: Stack full, lost result" << std::endl;
+         }
+      }
+      break;
+   
+   case '*':
+       if (numbers.top(p) == underflow)
+         std::cout << "Stack empty" << std::endl;
+      else {
+         numbers.pop();
+         if (numbers.top(q) == underflow) {
+            std::cout << "Stack has just one entry" << std::endl;
+            numbers.push(p);
+         }
+
+         else {
+            numbers.pop();
+            if (numbers.push(q * p) == overflow)
+               std::cout << "Warning: Stack full, lost result" << std::endl;
+         }
+      }
+      break;
+
+   case '/':
+       if (numbers.top(p) == underflow)
+         std::cout << "Stack empty" << std::endl;
+      else {
+         numbers.pop();
+         if (numbers.top(q) == underflow) {
+            std::cout << "Stack has just one entry" << std::endl;
+            numbers.push(p);
+         }
+
+         else {
+            numbers.pop();
+            if (numbers.push(q / p) == overflow)
+               std::cout << "Warning: Stack full, lost result" << std::endl;
+         }
+      }
+      break;
+
+   case 'x':
+       if (numbers.top(p) == underflow)
+         std::cout << "Stack empty" << std::endl;
+      else {
+         numbers.pop();
+         if (numbers.top(q) == underflow) {
+            std::cout << "Stack has just one entry" << std::endl;
+            numbers.push(p);
+         }
+
+         else {
+            numbers.pop();
+            numbers.push(q);
+            numbers.push(p);
+         }
+      }
+      break;
     case 'q':
       std::cout << "Calculation finished.\n";
       return false;
