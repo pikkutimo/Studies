@@ -23,5 +23,6 @@ void modulo(Stack &numbers);
 void exponentation(Stack &numbers);
 void square(Stack &numbers);
 void exhange(Stack &numbers);
+bool check_underflow(Stack &numbers, double &final);
 
 #endif

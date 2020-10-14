@@ -63,188 +63,42 @@ Uses: The class Stack.
 
    case '+':
       sum(numbers);
-      // if (numbers.top(p) == underflow)
-      //    std::cout << "Stack empty" << std::endl;
-      // else {
-      //    numbers.pop();
-      //    if (numbers.top(q) == underflow) {
-      //       std::cout << "Stack has just one entry" << std::endl;
-      //       numbers.push(p);
-      //    }
-
-      //    else {
-      //       numbers.pop();
-      //       if (numbers.push(q + p) == overflow)
-      //          std::cout << "Warning: Stack full, lost result" << std::endl;
-      //    }
-      // }
       break;
 
    case '-':
       minus(numbers);
-      // if (numbers.top(p) == underflow)
-      //    std::cout << "Stack empty" << std::endl;
-      // else {
-      //    numbers.pop();
-      //    if (numbers.top(q) == underflow) {
-      //       std::cout << "Stack has just one entry" << std::endl;
-      //       numbers.push(p);
-      //    }
-
-      //    else {
-      //       numbers.pop();
-      //       if (numbers.push(q - p) == overflow)
-      //          std::cout << "Warning: Stack full, lost result" << std::endl;
-      //    }
-      // }
       break;
    
    case '*':
       multiply(numbers);
-      // if (numbers.top(p) == underflow)
-      //    std::cout << "Stack empty" << std::endl;
-      // else {
-      //    numbers.pop();
-      //    if (numbers.top(q) == underflow) {
-      //       std::cout << "Stack has just one entry" << std::endl;
-      //       numbers.push(p);
-      //    }
-
-      //    else {
-      //       numbers.pop();
-      //       if (numbers.push(q * p) == overflow)
-      //          std::cout << "Warning: Stack full, lost result" << std::endl;
-      //    }
-      // }
       break;
 
    case '/':
       divide(numbers);
-      // if (numbers.top(p) == underflow)
-      //    std::cout << "Stack empty" << std::endl;
-      // else {
-      //    numbers.pop();
-      //    if (numbers.top(q) == underflow) {
-      //       std::cout << "Stack has just one entry" << std::endl;
-      //       numbers.push(p);
-      //    }
-
-      //    else {
-      //       numbers.pop();
-      //       if (numbers.push(q / p) == overflow)
-      //          std::cout << "Warning: Stack full, lost result" << std::endl;
-      //    }
-      // }
       break;
 
    case '%':
       modulo(numbers);
-      // if (numbers.top(p) == underflow)
-      //    std::cout << "Stack empty" << std::endl;
-      // else {
-      //    numbers.pop();
-      //    if (numbers.top(q) == underflow) {
-      //       std::cout << "Stack has just one entry" << std::endl;
-      //       numbers.push(p);
-      //    }
-
-      //    else {
-      //       numbers.pop();
-      //       count = q / p;
-      //       q = q - (count * p);
-      //       if (numbers.push(q) == overflow)
-      //          std::cout << "Warning: Stack full, lost result" << std::endl;
-      //    }
-      // }
       break;
 
    case '^':
       exponentation(numbers);
-      // if (numbers.top(p) == underflow)
-      //    std::cout << "Stack empty" << std::endl;
-      // else {
-      //    numbers.pop();
-      //    if (numbers.top(q) == underflow) {
-      //       std::cout << "Stack has just one entry" << std::endl;
-      //       numbers.push(p);
-      //    }
-
-      //    else {
-      //       numbers.pop();
-      //       q = pow(q, p);
-      //       if (numbers.push(q) == overflow)
-      //          std::cout << "Warning: Stack full, lost result" << std::endl;
-      //    }
-      // }
       break;
 
    case 'v':
       square(numbers);
-      // if (numbers.top(p) == underflow)
-      // {
-      //    std::cout << "Stack empty" << std::endl;
-      // }
-      // else
-      // {
-      //    numbers.pop();
-      //    q = sqrt(p);
-      //    if (numbers.push(q) == overflow)
-      //          std::cout << "Warning: Stack full, lost result" << std::endl;
-      // }
       break;
 
    case 'x':
       exhange(numbers);
-      // if (numbers.top(p) == underflow)
-      //    std::cout << "Stack empty" << std::endl;
-      // else {
-      //    numbers.pop();
-      //    if (numbers.top(q) == underflow) {
-      //       std::cout << "Stack has just one entry" << std::endl;
-      //       numbers.push(p);
-      //    }
-
-      //    else {
-      //       numbers.pop();
-      //       numbers.push(q);
-      //       numbers.push(p);
-      //    }
-      // }
       break;
 
    case 's':
       count_sum(numbers);
-      // if (numbers.top(p) == underflow)
-      //    std::cout << "Stack empty" << std::endl;
-      // else
-      // {
-      //    while (!numbers.empty())
-      //    {
-      //       q += p;
-      //       numbers.pop();
-      //       numbers.top(p);
-      //    }
-
-      //    numbers.push(q);
-      // }
       break;
 
    case 'a':
       count_average(numbers);
-      // if (numbers.top(p) == underflow)
-      //    std::cout << "Stack empty" << std::endl;
-      // else
-      // {
-      //    while (!numbers.empty())
-      //    {
-      //       count++;
-      //       q += p;
-      //       numbers.pop();
-      //       numbers.top(p);
-      //    }
-
-      //    numbers.push(q/count);
-      // }
       break;
 
    case 'q':
@@ -291,15 +145,19 @@ Uses:
    while (isOn)
    {
       std::getline(std::cin, lineInput);
-
+      lineInput += " ";
+      
       for (char ch: lineInput)
       {
          char command = tolower(ch);
          if (isdigit(command))
+         {
             inputNumber += command;
+            prevCharacter = command;
+         }
          else if(command =='.' || command == ',' && isdigit(prevCharacter))
             inputNumber += command;
-         else if (command == ' ')
+         else if (command == ' ' && isdigit(prevCharacter))
          {
             temp = std::stod(inputNumber);
             // std::cout << temp << " ";
@@ -307,6 +165,7 @@ Uses:
             // numbers.top(topOfStack);
             // std::cout << topOfStack << std::endl;
             inputNumber.clear();
+            prevCharacter = ' ';
          }
          else if (command == 'a' || command == '+' || command == 'q' ||
             command == '-' || command == '*' || command == '/' ||
@@ -360,6 +219,11 @@ Uses:
 }
 
 void count_average(Stack &numbers)
+/*
+Pre:  
+Post: 
+Uses: 
+*/
 {
    double last{0};
    double sum{0};
@@ -376,12 +240,16 @@ void count_average(Stack &numbers)
          numbers.pop();
          numbers.top(last);
       }
-
       numbers.push(sum/count);
    }
 }
 
 void sum(Stack &numbers)
+/*
+Pre:  
+Post: 
+Uses: 
+*/
 {
    double final{0};
    double penultimate{0};
@@ -403,6 +271,11 @@ void sum(Stack &numbers)
 }
 
 void minus(Stack &numbers)
+/*
+Pre:  
+Post: 
+Uses: 
+*/
 {
    double final{0};
    double penultimate{0};
@@ -425,6 +298,11 @@ void minus(Stack &numbers)
 }
 
 void multiply(Stack &numbers)
+/*
+Pre:  
+Post: 
+Uses: 
+*/
 {
    double final{0};
    double penultimate{0};
@@ -447,6 +325,11 @@ void multiply(Stack &numbers)
 }
 
 void divide(Stack &numbers)
+/*
+Pre:  
+Post: 
+Uses: 
+*/
 {
    double final{0};
    double penultimate{0};
@@ -471,6 +354,11 @@ void divide(Stack &numbers)
 }
 
 void modulo(Stack &numbers)
+/*
+Pre:  
+Post: 
+Uses: 
+*/
 {
    double final{0};
    double penultimate{0};
@@ -497,6 +385,11 @@ void modulo(Stack &numbers)
 }
 
 void exponentation(Stack &numbers)
+/*
+Pre:  
+Post: 
+Uses: 
+*/
 {
    double final{0};
    double penultimate{0};
@@ -520,6 +413,11 @@ void exponentation(Stack &numbers)
 }
 
 void square(Stack &numbers)
+/*
+Pre:  
+Post: 
+Uses: 
+*/
 {
    double topmost{0};
 
@@ -537,6 +435,11 @@ void square(Stack &numbers)
 }
 
 void exhange(Stack &numbers)
+/*
+Pre:  
+Post: 
+Uses: 
+*/
 {
    double final{0};
    double penultimate{0};
@@ -559,13 +462,18 @@ void exhange(Stack &numbers)
 }
 
 void count_sum(Stack &numbers)
+/*
+Pre:  
+Post: 
+Uses: 
+*/
 {
    double sum{0};
    double final{0};
 
-   if (numbers.top(final) == underflow)
-         std::cout << "Stack empty" << std::endl;
-   else
+   if (!check_underflow(numbers, final))
+   // if (numbers.top(final) == underflow)
+   //       std::cout << "Stack empty" << std::endl;
    {
       while (!numbers.empty())
       {
@@ -576,4 +484,20 @@ void count_sum(Stack &numbers)
 
       numbers.push(sum);
    }
+}
+
+bool check_underflow(Stack &numbers, double &final)
+/*
+Pre:  
+Post: 
+Uses: 
+*/
+{
+   if (numbers.top(final) == underflow)
+   {
+      std::cout << "Stack empty" << std::endl;
+      return true;
+   }
+
+   return false;      
 }
