@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cctype>
 #include <cmath>
+#include <cstring>
 
 char get_command();
 bool do_command(char command, Stack &numbers);
