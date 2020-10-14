@@ -15,6 +15,7 @@ void introduction();
 void instructions();
 void count_average(Stack &numbers);
 void count_sum(Stack &numbers);
+void sum(Stack &numbers);
 void minus(Stack &numbers);
 void multiply(Stack &numbers);
 void divide(Stack &numbers);
