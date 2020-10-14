@@ -14,7 +14,8 @@ Uses: The class Stack and the functions
       introduction();
       instructions();
       if (argc > 1 && strcmp(argv[1], "-p") == 0)
-            std::cout << "mom" << std::endl;
+            do_desk_calculator(stored_numbers);
+            // std::cout << "mom" << std::endl;
       else
             while (do_command(get_command(), stored_numbers));
 }

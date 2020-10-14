@@ -80,7 +80,7 @@ Uses: The class Stack.
       break;
 
    case '-':
-       if (numbers.top(p) == underflow)
+      if (numbers.top(p) == underflow)
          std::cout << "Stack empty" << std::endl;
       else {
          numbers.pop();
@@ -98,7 +98,7 @@ Uses: The class Stack.
       break;
    
    case '*':
-       if (numbers.top(p) == underflow)
+      if (numbers.top(p) == underflow)
          std::cout << "Stack empty" << std::endl;
       else {
          numbers.pop();
@@ -165,7 +165,7 @@ Uses: The class Stack.
 
          else {
             numbers.pop();
-            q = pow(p, q);
+            q = pow(q, p);
             if (numbers.push(q) == overflow)
                std::cout << "Warning: Stack full, lost result" << std::endl;
          }
@@ -187,7 +187,7 @@ Uses: The class Stack.
       break;
 
    case 'x':
-       if (numbers.top(p) == underflow)
+      if (numbers.top(p) == underflow)
          std::cout << "Stack empty" << std::endl;
       else {
          numbers.pop();
@@ -262,4 +262,286 @@ Uses:
 */
 {
    std::cout << "Instructions." << std::endl;
+}
+
+void do_desk_calculator(Stack &numbers)
+/*
+Pre:  
+Post: 
+Uses: 
+*/
+{
+   std::string lineInput{""};
+   std::string inputNumber{""};
+   char prevCharacter;
+   bool isOn{true};
+   double topOfStack{0};
+   double temp{0};
+
+   while (isOn)
+   {
+      std::getline(std::cin, lineInput);
+
+      for (char ch: lineInput)
+      {
+         char command = tolower(ch);
+         if (isdigit(command))
+            inputNumber += command;
+         else if(command =='.' || command == ',' && isdigit(prevCharacter))
+            inputNumber += command;
+         else if (command == ' ')
+         {
+            temp = std::stod(inputNumber);
+            // std::cout << temp << " ";
+            numbers.push(temp);
+            // numbers.top(topOfStack);
+            // std::cout << topOfStack << std::endl;
+            inputNumber.clear();
+         }
+         else if (command == 'a' || command == '+' || command == 'q' ||
+            command == '-' || command == '*' || command == '/' ||
+            command == '%' || command == '^' || command == 'v' ||
+            command == 'x' || command == 's')
+         {
+            switch(command)
+            {
+               case 'a':
+                  count_average(numbers);
+                  break;
+               case '+':
+                  count_sum(numbers);
+                  break;
+               case 'q':
+                  isOn = false;
+                  break;
+               case '-':
+                  minus(numbers);
+                  break;
+               case '*':
+                  multiply(numbers);
+                  break;
+               case '/':
+                  divide(numbers);
+                  break;
+               case '%':
+                  modulo(numbers);
+                  break;
+               case '^':
+                  exponentation(numbers);
+                  break;
+               case 'v':
+                  square(numbers);
+                  break;
+               case 'x':
+                  exhange(numbers);
+                  break;
+               case 's':
+                  count_sum(numbers);
+                  break;
+            }
+         }
+         else
+            continue;
+      }
+      
+      numbers.top(topOfStack);
+      std::cout << topOfStack << std::endl;
+   }
+}
+
+void count_average(Stack &numbers)
+{
+   double last{0};
+   double sum{0};
+   int count{0};
+   
+   if (numbers.top(last) == underflow)
+      std::cout << "Stack empty" << std::endl;
+   else
+   {
+      while (!numbers.empty())
+      {
+         count++;
+         sum += last;
+         numbers.pop();
+         numbers.top(last);
+      }
+
+      numbers.push(sum/count);
+   }
+}
+
+void count_sum(Stack &numbers)
+{
+   double final{0};
+   double penultimate{0};
+
+   if (numbers.top(final) == underflow)
+         std::cout << "Stack empty" << std::endl;
+   else {
+      numbers.pop();
+      if (numbers.top(penultimate) == underflow) {
+         std::cout << "Stack has just one entry" << std::endl;
+         numbers.push(final);
+      }
+      else {
+         numbers.pop();
+         if (numbers.push(final + penultimate) == overflow)
+            std::cout << "Warning: Stack full, lost result" << std::endl;
+      }
+   }
+}
+
+void minus(Stack &numbers)
+{
+   double final{0};
+   double penultimate{0};
+
+   if (numbers.top(final) == underflow)
+         std::cout << "Stack empty" << std::endl;
+   else {
+      numbers.pop();
+      if (numbers.top(penultimate) == underflow) {
+         std::cout << "Stack has just one entry" << std::endl;
+         numbers.push(final);
+      }
+      else 
+      {
+         numbers.pop();
+         if (numbers.push(penultimate - final) == overflow)
+            std::cout << "Warning: Stack full, lost result" << std::endl;
+      }
+   }
+}
+
+void multiply(Stack &numbers)
+{
+   double final{0};
+   double penultimate{0};
+
+   if (numbers.top(final) == underflow)
+         std::cout << "Stack empty" << std::endl;
+   else {
+      numbers.pop();
+      if (numbers.top(penultimate) == underflow) {
+         std::cout << "Stack has just one entry" << std::endl;
+         numbers.push(final);
+      }
+
+      else {
+         numbers.pop();
+         if (numbers.push(final * penultimate) == overflow)
+            std::cout << "Warning: Stack full, lost result" << std::endl;
+      }
+   }
+}
+
+void divide(Stack &numbers)
+{
+   double final{0};
+   double penultimate{0};
+
+   if (numbers.top(final) == underflow)
+      std::cout << "Stack empty" << std::endl;
+   else {
+      numbers.pop();
+      if (numbers.top(penultimate) == underflow) {
+         std::cout << "Stack has just one entry" << std::endl;
+         numbers.push(final);
+      }
+
+      else {
+         numbers.pop();
+         if (numbers.push(penultimate / final) == overflow)
+            std::cout << "Warning: Stack full, lost result" << std::endl;
+      }
+   }
+}
+
+void modulo(Stack &numbers)
+{
+   double final{0};
+   double penultimate{0};
+   int size{0};
+
+   if (numbers.top(final) == underflow)
+         std::cout << "Stack empty" << std::endl;
+   else {
+      numbers.pop();
+      if (numbers.top(penultimate) == underflow) 
+      {
+         std::cout << "Stack has just one entry" << std::endl;
+         numbers.push(final);
+      }
+      else 
+      {
+         numbers.pop();
+         size = penultimate / final;
+         penultimate = penultimate - (size * final);
+         if (numbers.push(penultimate) == overflow)
+            std::cout << "Warning: Stack full, lost result" << std::endl;
+      }
+   }
+}
+
+void exponentation(Stack &numbers)
+{
+   double final{0};
+   double penultimate{0};
+
+   if (numbers.top(final) == underflow)
+         std::cout << "Stack empty" << std::endl;
+   else {
+      numbers.pop();
+      if (numbers.top(penultimate) == underflow) {
+         std::cout << "Stack has just one entry" << std::endl;
+         numbers.push(final);
+      }
+      else
+      {
+         numbers.pop();
+         penultimate = pow(penultimate, final);
+         if (numbers.push(penultimate) == overflow)
+            std::cout << "Warning: Stack full, lost result" << std::endl;
+      }
+   }
+}
+
+void square(Stack &numbers)
+{
+   double topmost{0};
+
+   if (numbers.top(topmost) == underflow)
+   {
+      std::cout << "Stack empty" << std::endl;
+   }
+   else
+   {
+      numbers.pop();
+      topmost = sqrt(topmost);
+      if (numbers.push(topmost) == overflow)
+            std::cout << "Warning: Stack full, lost result" << std::endl;
+   }
+}
+
+void exhange(Stack &numbers)
+{
+   double final{0};
+   double penultimate{0};
+
+   if (numbers.top(final) == underflow)
+         std::cout << "Stack empty" << std::endl;
+   else {
+      numbers.pop();
+      if (numbers.top(penultimate) == underflow) {
+         std::cout << "Stack has just one entry" << std::endl;
+         numbers.push(final);
+      }
+      else
+      {
+         numbers.pop();
+         numbers.push(final);
+         numbers.push(penultimate);
+      }
+   }
 }
