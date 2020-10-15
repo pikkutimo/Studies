@@ -181,6 +181,14 @@ Post: Reverse polish calculator with string input.
             command == '%' || command == '^' || command == 'v' ||
             command == 'x' || command == 's')
          {
+            if (isdigit(prevCharacter))
+            {
+               temp = std::stod(inputNumber);
+               numbers.push(temp);
+               inputNumber.clear();
+               prevCharacter = ' ';
+            }
+            
             switch(command)
             {
                case 'a':
