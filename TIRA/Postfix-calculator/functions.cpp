@@ -159,9 +159,8 @@ Post: Reverse polish calculator with string input.
       std::getline(std::cin, lineInput);
       lineInput += " ";
       
-      for (char ch: lineInput)
+      for (char command: lineInput)
       {
-         char command = tolower(ch);
          if (isdigit(command))
          {
             inputNumber += command;
@@ -188,7 +187,7 @@ Post: Reverse polish calculator with string input.
                inputNumber.clear();
                prevCharacter = ' ';
             }
-            
+
             switch(command)
             {
                case 'a':

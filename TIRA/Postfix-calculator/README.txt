@@ -65,6 +65,16 @@ Hours
 
 Desing decisions
 
-    First my design was limited by the base program provided, but once I began working on the prompt
-    version I refactored parts of the code. Mainly the modifications were related to parts of the program
-    I could make into separate functions.
+    I decided to split the program into two separate parts based whether command line parameters were 
+    used or not. For the base version, I simple created the necessary lines of code to fill the gaps 
+    and later on, I refactored these parts into separate functions usable in both versions. For both 
+    versions I simple followed the basic layout of the books example.
+
+    The base version excepts input one character at a time, except for the numbers.
+
+    The prompt version reads input one line at a time. After that the function goes through the input
+    one character at the time. The action following each character is decided with couple of
+    if-statements and a switch-case. After the every operation on the line has been done, the program
+    shows the top most element in the stack.
+
+    Both versions continue until the input is q, which ends the loop.
