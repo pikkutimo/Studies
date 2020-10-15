@@ -12,7 +12,7 @@ char get_command();
 bool do_command(char command, Stack &numbers);
 void do_desk_calculator(Stack &numbers);
 void introduction();
-void instructions();
+void instructions(bool &prompt);
 void count_average(Stack &numbers);
 void count_sum(Stack &numbers);
 void sum(Stack &numbers);

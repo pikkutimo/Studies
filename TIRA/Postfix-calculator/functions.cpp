@@ -111,28 +111,38 @@ Uses: The class Stack.
 void introduction()
 /*
 Pre:  
-Post:
-Uses: 
+Post: Prints out short introduction to the ideas behind Polish reverse notation. 
 */
 {
-   std::cout << "Introduction." << std::endl;
+   std::cout << "Reverse Polish notation (RPN), also known as Polish postfix notation or" << std::endl
+            << "postfix notation, is a mathematical notation in which operators follow their operands," << std::endl
+            << "in contrast to Polish notation (PN), in which operators precede their operands." << std::endl
+            << "does not need any parentheses as long as each operator has a fixed number of operands.\n" << std::endl;
 }
 
-void instructions()
+void instructions(bool &prompt)
 /*
 Pre:  
-Post: 
-Uses: 
+Post: Prints out the instructions fo the usage of the calculator.
 */
 {
-   std::cout << "Instructions." << std::endl;
+   std::cout << "Please enter a valid command:"   << std::endl;
+   if (prompt == false)
+      std::cout << "[?]push to stack   [=]print top" << std::endl;
+   else
+      std::cout << "The result or the top most element will be shown after you press [ENTER]" << std::endl;
+   std::cout << "[x]to swap two topmost elements" << std::endl
+      << "[s]to sum all elements of the stack, clear it and insert the sum" << std::endl
+      << "[a]to clear the stack and insert the average" << std::endl
+      << "[+] [-] [*] [/]   are arithmetic operations" << std::endl
+      << "[%] [^] [v] are modulo, exponent and square" << std::endl
+      << "[Q]uit." << std::endl;
 }
 
 void do_desk_calculator(Stack &numbers)
 /*
 Pre:  
-Post: 
-Uses: 
+Post: Reverse polish calculator with string input.
 */
 {
    std::string lineInput{""};
@@ -141,6 +151,8 @@ Uses:
    bool isOn{true};
    double topOfStack{0};
    double temp{0};
+
+   std::cout << "\nEnter the calculation:" << std::endl;
 
    while (isOn)
    {
@@ -160,10 +172,7 @@ Uses:
          else if (command == ' ' && isdigit(prevCharacter))
          {
             temp = std::stod(inputNumber);
-            // std::cout << temp << " ";
             numbers.push(temp);
-            // numbers.top(topOfStack);
-            // std::cout << topOfStack << std::endl;
             inputNumber.clear();
             prevCharacter = ' ';
          }
@@ -213,25 +222,26 @@ Uses:
             continue;
       }
 
-      numbers.top(topOfStack);
-      std::cout << topOfStack << std::endl;
+      if (isOn)
+      {
+         numbers.top(topOfStack);
+         std::cout << topOfStack << std::endl;
+      }
+      
    }
 }
 
 void count_average(Stack &numbers)
 /*
 Pre:  
-Post: 
-Uses: 
+Post: Calculates the average of every value in the stack and replaces all of them with value.
 */
 {
    double last{0};
    double sum{0};
    int count{0};
    
-   if (numbers.top(last) == underflow)
-      std::cout << "Stack empty" << std::endl;
-   else
+   if (!check_underflow(numbers, last))
    {
       while (!numbers.empty())
       {
@@ -247,16 +257,14 @@ Uses:
 void sum(Stack &numbers)
 /*
 Pre:  
-Post: 
-Uses: 
+Post: Calculates the sum of the two top most values in the stack and replaces them with the sum.
 */
 {
    double final{0};
    double penultimate{0};
 
-   if (numbers.top(final) == underflow)
-         std::cout << "Stack empty" << std::endl;
-   else {
+   if (!check_underflow(numbers, final))
+   {
       numbers.pop();
       if (numbers.top(penultimate) == underflow) {
          std::cout << "Stack has just one entry" << std::endl;
@@ -273,16 +281,15 @@ Uses:
 void minus(Stack &numbers)
 /*
 Pre:  
-Post: 
-Uses: 
+Post: Calculates the difference between the two top most values in the stack and replaces them with the 
+      difference.
 */
 {
    double final{0};
    double penultimate{0};
 
-   if (numbers.top(final) == underflow)
-         std::cout << "Stack empty" << std::endl;
-   else {
+   if (!check_underflow(numbers, final)) 
+   {
       numbers.pop();
       if (numbers.top(penultimate) == underflow) {
          std::cout << "Stack has just one entry" << std::endl;
@@ -300,16 +307,14 @@ Uses:
 void multiply(Stack &numbers)
 /*
 Pre:  
-Post: 
-Uses: 
+Post: Multiplies the two top most values in the stack and replaces them with the product. 
 */
 {
    double final{0};
    double penultimate{0};
 
-   if (numbers.top(final) == underflow)
-         std::cout << "Stack empty" << std::endl;
-   else {
+   if (!check_underflow(numbers, final))
+   {
       numbers.pop();
       if (numbers.top(penultimate) == underflow) {
          std::cout << "Stack has just one entry" << std::endl;
@@ -327,17 +332,16 @@ Uses:
 void divide(Stack &numbers)
 /*
 Pre:  
-Post: 
-Uses: 
+Post: Calculates the difference between the two top most values in the stack and replaces them 
+      with the difference.
 */
 {
    double final{0};
    double penultimate{0};
    double remainder{0};
 
-   if (numbers.top(final) == underflow)
-      std::cout << "Stack empty" << std::endl;
-   else {
+   if (!check_underflow(numbers, final))
+   {
       numbers.pop();
       if (numbers.top(penultimate) == underflow) {
          std::cout << "Stack has just one entry" << std::endl;
@@ -356,17 +360,16 @@ Uses:
 void modulo(Stack &numbers)
 /*
 Pre:  
-Post: 
-Uses: 
+Post: Calculatest the modulo of the two top most values in the stack and replaces them with
+      the modulo.
 */
 {
    double final{0};
    double penultimate{0};
    int size{0};
 
-   if (numbers.top(final) == underflow)
-         std::cout << "Stack empty" << std::endl;
-   else {
+   if (!check_underflow(numbers, final))
+   {
       numbers.pop();
       if (numbers.top(penultimate) == underflow) 
       {
@@ -387,16 +390,15 @@ Uses:
 void exponentation(Stack &numbers)
 /*
 Pre:  
-Post: 
-Uses: 
+Post: Calculates the exponent of the two top most values in the stack. The last value in the stack is
+      the index and the penultimate value is the base. These are replaced with the result.
 */
 {
    double final{0};
    double penultimate{0};
 
-   if (numbers.top(final) == underflow)
-         std::cout << "Stack empty" << std::endl;
-   else {
+   if (!check_underflow(numbers, final))
+   {
       numbers.pop();
       if (numbers.top(penultimate) == underflow) {
          std::cout << "Stack has just one entry" << std::endl;
@@ -415,17 +417,12 @@ Uses:
 void square(Stack &numbers)
 /*
 Pre:  
-Post: 
-Uses: 
+Post: Calculates the squareroot of the top most value in the stack and replaces it with the result. 
 */
 {
    double topmost{0};
 
-   if (numbers.top(topmost) == underflow)
-   {
-      std::cout << "Stack empty" << std::endl;
-   }
-   else
+   if (!check_underflow(numbers, topmost))
    {
       numbers.pop();
       topmost = sqrt(topmost);
@@ -437,16 +434,14 @@ Uses:
 void exhange(Stack &numbers)
 /*
 Pre:  
-Post: 
-Uses: 
+Post: Exhanges the two top most values in the stack with each other. 
 */
 {
    double final{0};
    double penultimate{0};
 
-   if (numbers.top(final) == underflow)
-         std::cout << "Stack empty" << std::endl;
-   else {
+   if (!check_underflow(numbers, final))
+   {
       numbers.pop();
       if (numbers.top(penultimate) == underflow) {
          std::cout << "Stack has just one entry" << std::endl;
@@ -464,16 +459,13 @@ Uses:
 void count_sum(Stack &numbers)
 /*
 Pre:  
-Post: 
-Uses: 
+Post: Calculates the sum of all the values in the stack and replaces them with the sum.
 */
 {
    double sum{0};
    double final{0};
 
    if (!check_underflow(numbers, final))
-   // if (numbers.top(final) == underflow)
-   //       std::cout << "Stack empty" << std::endl;
    {
       while (!numbers.empty())
       {
@@ -489,8 +481,7 @@ Uses:
 bool check_underflow(Stack &numbers, double &final)
 /*
 Pre:  
-Post: 
-Uses: 
+Post: Checks whether the stack is empty or not.
 */
 {
    if (numbers.top(final) == underflow)

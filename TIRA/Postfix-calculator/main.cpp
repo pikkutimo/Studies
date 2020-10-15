@@ -11,11 +11,19 @@ Uses: The class Stack and the functions
 */
 {
       Stack stored_numbers;
+      bool prompt{false};
+
       introduction();
-      instructions();
       if (argc > 1 && strcmp(argv[1], "-p") == 0)
-            do_desk_calculator(stored_numbers);
-            // std::cout << "mom" << std::endl;
+      {
+           prompt = true;
+           instructions(prompt);
+           do_desk_calculator(stored_numbers);
+      }
       else
+      {
+            instructions(prompt);
             while (do_command(get_command(), stored_numbers));
+      }
+            
 }
