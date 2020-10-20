@@ -36,7 +36,6 @@ int main(){
 
 void comparator(std::string& line, Extended_queue& test_queue)
 {
-    
     std::stringstream str(line);
     bool colonIs{false};
 
