@@ -101,36 +101,3 @@ Post:   Return underflow if the Extended queue is empty. Otherwise remove and co
     front = ((front + 1) == maxqueue) ? 0 : (front + 1);
     return success;
 }
-
-Error_code Extended_queue::compare()
-/*
-Post: Compares the two top most elements in the queue.
-*/
-{
-   Queue_entry first_item;
-   Queue_entry second_item;
-
-   if (count <= 1)
-   {
-      std::cout << "There are only one item in the queue." << std::endl;
-      return underflow;
-   }
-
-   this->serve_and_retrieve(first_item);
-   this->retrieve(second_item);
-
-   std::cout << "Left: " << first_item.length() << " Right: " << second_item.length() << std::endl;
-
-   if (first_item == second_item)
-      std::cout << "S" << std::endl;
-   else if (first_item.length() == second_item.length())
-      std::cout << "D" << std::endl;
-   else if (first_item > second_item)
-      std::cout << "L" << std::endl;
-   else if (first_item < second_item)
-      std::cout << "R" << std::endl;
-
-   this->serve();
-
-   return success;
-}

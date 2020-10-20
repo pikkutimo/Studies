@@ -5,7 +5,7 @@
 #include <string>
 
 const int maxqueue = 10; //  small value for testing
-typedef std::string Queue_entry;
+typedef char Queue_entry;
 
 class Queue {
 public:
@@ -27,7 +27,6 @@ public:
    int size() const;
    void clear();
    Error_code serve_and_retrieve(Queue_entry &item);
-   Error_code compare();
 };
 
 #endif 

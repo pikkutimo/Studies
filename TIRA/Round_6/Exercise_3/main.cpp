@@ -3,12 +3,10 @@
 #include <string>
 #include <sstream>
 
-void comparator(std::string&, Extended_queue&);
+void comparator(std::string&);
 
 int main(){
 
-    Extended_queue test_queue;
-    
     std::cout << "The input is supposed to consist of two parts separated by a colon : ." << std::endl
                 << "As its result, the output should be a single character based on the input:" << std::endl
                 << std::endl
@@ -28,31 +26,55 @@ int main(){
         std::getline(std::cin, input);
         if (input == "q" || input == "Q")
             comparatorOn = false;
-        comparator(input, test_queue);
+        comparator(input);
     }
     
     return 0;
 }
 
-void comparator(std::string& line, Extended_queue& test_queue)
+void comparator(std::string& line)
 {
-    std::stringstream str(line);
-    bool colonIs{false};
+    Extended_queue left_queue;
+    Extended_queue right_queue;
+    bool isColon{false};
 
-    std::string buffer{""};
-
-    while(str >> buffer)
+    for (auto character : line)
     {
-        if (buffer == ":") colonIs = true;
-        else
-            test_queue.append(buffer);
+        if (character == ':')
+            isColon = true;
+        else if (isColon)
+            right_queue.append(character);
+        else 
+            left_queue.append(character);
     }
     
-    if (colonIs == false)
-        std::cout << "N" << std::endl;
+    if (right_queue.empty())
+        std::cout << "N";
+    else if (right_queue.size() > left_queue.size())
+        std::cout << "R";
+    else if (right_queue.size() < left_queue.size())
+        std::cout << "L";
     else
     {
-        test_queue.compare();
+        Queue_entry left;
+        Queue_entry right;
+        bool isSame(true);
+
+        while(!left_queue.empty())
+        {
+            left_queue.serve_and_retrieve(left);
+            right_queue.serve_and_retrieve(right);
+
+            if (left != right)
+                isSame = false;
+                break;
+        }
+
+        if (isSame)
+            std::cout << "S";
+        else
+            std::cout << "D";
     }
-    
+
+    std::cout << std::endl;
 }
