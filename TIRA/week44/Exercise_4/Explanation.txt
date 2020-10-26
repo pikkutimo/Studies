@@ -1,0 +1,13 @@
+Explain why we cannot use the following implementation for the method push
+in our linked Stack.
+
+	Error_code Stack :: push(Stack_entry item)
+	{
+		Node new_top(item, top_node);
+		top_node = new_top;
+		return success;
+	}
+
+My explanation: Because this implementation does not contain the keyword new or the aterisk sign
+of the pointer, which would tell the compiler create this node on the heap. Therefore these cannot 
+be dynamic objects.
