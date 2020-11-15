@@ -1,6 +1,6 @@
-#Week 46 home assignment
+# Week 46 home assignment
 
-##Exercise 1.
+## Exercise 1.
 
 Exercise 5.1 E1 (the exact assignment can be found in the file 5.1_E1_E2.jpg in moodle)
 	
@@ -12,7 +12,7 @@ Exercise 5.1 E2 (the exact assignment can be found in the file 5.1_E1_E2.jpg in 
 
 
 
-##Exercise 3.
+## Exercise 3.
 
 This task is solved by programming the program to display execution times,
 numbers of transfer orders, etc. (see below). You can then draw from these running results e.g., Excel charts; for example, a diagram showing the number of transfer instructions development as a function of the number of disks.
@@ -29,14 +29,14 @@ Also consider the following ways to explore the heaviness of running Hanoi progr
 
 
 
-##Exercise 4.
+## Exercise 4.
 
 Run the two different Hanoi programs to make sure that both algorithms solve the Hanoi tower problem (basic recursive and the one with tail recursion removed) work
 in exactly the same way and correctly. Tip: Compare the running results of both programs to each other in relatively short runs (few disks). For example, on Unix / Linux systems with diff command you can compare the similarity of the contents of two text files; do so that these text files contain the outputs of the runned programs. For example in cmd-tool you can run hanoi as follows: hanoi.exe > output.txt . Make this with the other program as well and then compare output files with diff.
 
 
 
-##Exercise 5.
+## Exercise 5.
 
 Analyze by programming and using Excel for output processing how recursive version of Fibonacci() subroutine behaves:
 - how many Fibonacci() calls are generated from arbitrary Fibonacci(n)
@@ -50,7 +50,7 @@ Copy and paste your driving results from console output into Excel sheet to draw
 
 
 
-##Exercise 6.
+## Exercise 6.
 
 The greatest common divisor (gcd) of two positive integers is the largest 
 integer that divides both of them. Thus, for example, the gcd of 8 and 
