@@ -37,9 +37,9 @@ Uses: Classes Runway, Plane, Random and functions run_idle, initialize. */
         // current arrival requests
         for (int i = 0; i < number_arrivals; i++) {
     
-            Plane current_plane(flight_number++, current_time, arriving);
-            if (landingStrip.can_land(current_plane) != success)
-                current_plane.refuse();
+            Plane landing_plane(flight_number++, current_time, arriving);
+            if (landingStrip.can_land(landing_plane) != success)
+                landing_plane.refuse();
         }
     
         int number_departures = variable.poisson(departure_rate);
@@ -47,27 +47,27 @@ Uses: Classes Runway, Plane, Random and functions run_idle, initialize. */
 
         for (int j = 0; j < number_departures; j++) {
                 
-            Plane current_plane(flight_number++, current_time, departing);
-            if (takeoffStrip.can_depart(current_plane) != success)
-                current_plane.refuse();
+            Plane takeoff_plane(flight_number++, current_time, departing);
+            if (takeoffStrip.can_depart(takeoff_plane) != success)
+                takeoff_plane.refuse();
         }
         
-        Plane landing_plane;
-        Plane takingoff_plane;
+        Plane first_moving_plane;
+        Plane second_moving_plane;
 
-        switch (landingStrip.activity(current_time, landing_plane)) {
-        // Let at most one Plane land on the Runway at current_time.
+        switch (landingStrip.landing_activity(current_time, first_moving_plane)) {
+        
             case land:
-                landing_plane.land(current_time);
+                first_moving_plane.land(current_time);
                 break;
             case idle:
                 run_idle(current_time);
         }
 
-        switch (takeoffStrip.activity(current_time, takingoff_plane)) {
-        // Let at most one Plane takeoff from the Runway at current_time.
+        switch (takeoffStrip.takeoff_activity(current_time, second_moving_plane)) {
+
             case take_off:
-                takingoff_plane.fly(current_time);
+                second_moving_plane.fly(current_time);
                 break;
             case idle:
                 run_idle(current_time);

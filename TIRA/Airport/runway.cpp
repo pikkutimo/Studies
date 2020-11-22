@@ -87,6 +87,54 @@ Uses: class Extended_queue. */
     return in_progress;
 }
 
+Runway_activity Runway::landing_activity(int time, Plane &moving)
+/* Post: If the landing Queue has entries, its front Plane is copied to the parameter
+moving and a result land is returned. Otherwise, idle is returned. Runway statistics are
+updated.
+Uses: class Extended_queue. */
+{
+    Runway_activity in_progress;
+    if (!landing.empty( ))
+    {
+        landing.retrieve(moving);
+        land_wait += (time-moving.started());
+        num_landings++;
+        in_progress = land;
+        landing.serve( );
+    }
+    else 
+    {
+        idle_time++;
+        in_progress = idle;
+    }
+
+    return in_progress;
+}
+
+Runway_activity Runway::takeoff_activity(int time, Plane &moving)
+/* Post: If the takeoff Queue has entries, its front Plane is copied to 
+the parameter moving and a result takeoff is returned. Otherwise, idle is
+returned. Runway statistics are updated.
+Uses: class Extended_queue. */
+{
+    Runway_activity in_progress;
+    if (!takeoff.empty()) 
+    {
+        takeoff.retrieve(moving);
+        takeoff_wait += time - moving.started( );
+        num_takeoffs++;
+        in_progress = take_off;
+        takeoff.serve( );
+    }
+    else 
+    {
+        idle_time++;
+        in_progress = idle;
+    }
+
+    return in_progress;
+}
+
 void Runway::shut_down(int time) const
 /* Post: Runway usage statistics are summarized and printed. */
 {
