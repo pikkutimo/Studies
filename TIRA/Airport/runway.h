@@ -18,6 +18,8 @@ class Runway {
         void shut_down(int time) const;
         void shut_down_landings(int time) const;
         void shut_down_takeoffs(int time) const;
+        void landing_queue_empty() const;
+        void takeoff_queue_empty() const;
     private:
         Extended_queue landing;
         Extended_queue takeoff;

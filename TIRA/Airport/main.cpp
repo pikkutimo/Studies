@@ -39,7 +39,16 @@ Uses: Classes Runway, Plane, Random and functions run_idle, initialize. */
     
             Plane landing_plane(flight_number++, current_time, arriving);
             if (landingStrip.can_land(landing_plane) != success)
-                landing_plane.refuse();
+            {   
+                //If the landing queue is full, check if the other runways takeoff queue is empty
+                //-> if it is landing can be done through that runway
+                if (takeoffStrip.takeoff_queue_empty())
+                {
+                    takeoffStrip.can_land(landing_plane);
+                }
+                else
+                    landing_plane.refuse();
+            }
         }
     
         int number_departures = variable.poisson(departure_rate);
@@ -49,18 +58,31 @@ Uses: Classes Runway, Plane, Random and functions run_idle, initialize. */
                 
             Plane takeoff_plane(flight_number++, current_time, departing);
             if (takeoffStrip.can_depart(takeoff_plane) != success)
-                takeoff_plane.refuse();
+            {
+                //If the takeoff queue is full, check if the other runways landing queue is empty
+                //-> if it is takeoff can be done through that runway
+                if (landingStrip.landing_queue_empty())
+                {
+                    landingStrip.can_depart(takeoff_plane);
+                }
+                else
+                    takeoff_plane.refuse();
+            }    
+                
         }
         
         Plane first_moving_plane;
         Plane second_moving_plane;
 
+        // For moving planes if the landing queue is full, the runway for takeoffs 
+        // stops all takeoffs and is used for landings only until the receiving
+        // queue can handle all moving planes
         switch (landingStrip.landing_activity(current_time, first_moving_plane)) {
         
             case land:
                 first_moving_plane.land(current_time);
                 break;
-            case idle:
+            case idle: //If idle can handle the other queue
                 run_idle(current_time);
         }
 
@@ -69,7 +91,7 @@ Uses: Classes Runway, Plane, Random and functions run_idle, initialize. */
             case take_off:
                 second_moving_plane.fly(current_time);
                 break;
-            case idle:
+            case idle: //If idle can handle the other queue
                 run_idle(current_time);
         }
     }

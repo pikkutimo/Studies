@@ -228,3 +228,15 @@ void Runway::shut_down_takeoffs(int time) const
         << ((float) num_takeoff_requests)/((float) time)
         << " per time unit" << std::endl << std::endl;
 }
+
+bool Runway::landing_queue_empty() const
+// Post: Returns true if queue empty
+{
+    return this->landing.empty();
+}
+
+bool Runway::takeoff_queue_empty() const
+// Post: Returns true if queue empty
+{
+    return this->takeoff.empty();
+}
