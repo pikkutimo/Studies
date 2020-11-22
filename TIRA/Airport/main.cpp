@@ -74,8 +74,9 @@ Uses: Classes Runway, Plane, Random and functions run_idle, initialize. */
         }
     }
 
-    takeoffStrip.shut_down(end_time);
-    landingStrip.shut_down(end_time);
+    std::cout << std::endl;
+    takeoffStrip.shut_down_takeoffs(end_time);
+    landingStrip.shut_down_landings(end_time);
 
     return 0;
 }
@@ -88,8 +89,8 @@ Post:   The program prints instructions and initializes the parameters end_time,
         queue_limit, arrival_rate, and departure_rate to the specified values.
 Uses:   utility function user_says_yes */
 {
-    std::cout << "This program simulates an airport with only one runway." << std::endl
-        << "One plane can land or depart in each unit of time." << std::endl;
+    std::cout << "This program simulates an airport with two runways." << std::endl
+        << "One plane can land and depart in each unit of time." << std::endl;
     std::cout << "Up to what number of planes can be waiting to land "
             << "or take off at any time? " << std::flush;
     std::cin >> queue_limit;
@@ -106,7 +107,7 @@ Uses:   utility function user_says_yes */
             std::cerr << "These rates must be nonnegative." << std::endl;
         else
             acceptable = true;
-        if (acceptable && arrival_rate + departure_rate > 1.0)
+        if (acceptable && arrival_rate + departure_rate > 2.0)
             std::cerr << "Safety Warning: This airport will become saturated. " << std::endl;
     } while (!acceptable);
 }

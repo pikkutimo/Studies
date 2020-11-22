@@ -175,3 +175,56 @@ void Runway::shut_down(int time) const
         << ((float) num_takeoff_requests)/((float) time)
         << " per time unit" << std::endl;
 }
+
+void Runway::shut_down_landings(int time) const
+/* Post: Runway usage statistics are summarized and printed. */
+{
+    std::cout << "LANDINGS" << std::endl 
+        << "Simulation has concluded after " << time << " time units." << std::endl
+        << "Total number of landing planes processed "
+        << num_land_requests << std::endl
+        << "Total number of planes asking to land "
+        << num_land_requests << std::endl
+        << "Total number of planes accepted for landing "
+        << num_land_accepted << std::endl
+        << "Total number of planes refused for landing "
+        << num_land_refused << std::endl
+        << "Total number of planes that landed "
+        << num_landings << std::endl
+        << "Total number of planes left in landing queue "
+        << landing.size( ) << std::endl;
+    std::cout << "Percentage of time runway idle "
+        << 100.0 * ((float) idle_time)/((float) time) << "%" << std::endl;
+    std::cout << "Average wait in landing queue "
+        << ((float) land_wait)/((float) num_landings) << " time units" << std::endl;
+    std::cout << "Average observed rate of planes wanting to land "
+        << ((float) num_land_requests)/((float) time)
+        << " per time unit" << std::endl << std::endl;
+}
+
+void Runway::shut_down_takeoffs(int time) const
+/* Post: Runway usage statistics are summarized and printed. */
+{
+    std::cout << "TAKE OFFS" << std::endl 
+        <<"Simulation has concluded after " << time << " time units." << std::endl
+        << "Total number of planes taking off processed "
+        << num_takeoff_requests << std::endl
+        << "Total number of planes asking to take off "
+        << num_takeoff_requests << std::endl
+        << "Total number of planes accepted for takeoff "
+        << num_takeoff_accepted << std::endl
+        << "Total number of planes refused for takeoff "
+        << num_takeoff_refused << std::endl
+        << "Total number of planes that took off "
+        << num_takeoffs << std::endl
+        << "Total number of planes left in takeoff queue "
+        << takeoff.size( ) << std::endl;
+    std::cout << "Percentage of time runway idle "
+        << 100.0 * ((float) idle_time)/((float) time) << "%" << std::endl;
+    std::cout << "Average wait in takeoff queue "
+        << ((float) takeoff_wait)/((float) num_takeoffs)
+        << " time units" << std::endl;
+    std::cout << "Average observed rate of planes wanting to take off "
+        << ((float) num_takeoff_requests)/((float) time)
+        << " per time unit" << std::endl << std::endl;
+}
