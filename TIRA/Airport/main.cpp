@@ -25,15 +25,20 @@ Uses: Classes Runway, Plane, Random and functions run_idle, initialize. */
 
     initialize(end_time, queue_limit, arrival_rate, departure_rate);
     Random variable;
-    Runway small_airport(queue_limit);
+    // Two separate runways for both landing and takeoff
+    Runway landingStrip(queue_limit);
+    Runway takeoffStrip(queue_limit);
+
     for (int current_time = 0; current_time < end_time; current_time++) {
         // loop over time intervals
+
+        
         int number_arrivals = variable.poisson(arrival_rate);
         // current arrival requests
         for (int i = 0; i < number_arrivals; i++) {
     
             Plane current_plane(flight_number++, current_time, arriving);
-            if (small_airport.can_land(current_plane) != success)
+            if (landingStrip.can_land(current_plane) != success)
                 current_plane.refuse();
         }
     
@@ -43,25 +48,34 @@ Uses: Classes Runway, Plane, Random and functions run_idle, initialize. */
         for (int j = 0; j < number_departures; j++) {
                 
             Plane current_plane(flight_number++, current_time, departing);
-            if (small_airport.can_depart(current_plane) != success)
+            if (takeoffStrip.can_depart(current_plane) != success)
                 current_plane.refuse();
         }
         
-        Plane moving_plane;
+        Plane landing_plane;
+        Plane takingoff_plane;
 
-        switch (small_airport.activity(current_time, moving_plane)) {
-        // Let at most one Plane onto the Runway at current_time.
+        switch (landingStrip.activity(current_time, landing_plane)) {
+        // Let at most one Plane land on the Runway at current_time.
             case land:
-                moving_plane.land(current_time);
+                landing_plane.land(current_time);
                 break;
+            case idle:
+                run_idle(current_time);
+        }
+
+        switch (takeoffStrip.activity(current_time, takingoff_plane)) {
+        // Let at most one Plane takeoff from the Runway at current_time.
             case take_off:
-                moving_plane.fly(current_time);
+                takingoff_plane.fly(current_time);
                 break;
             case idle:
                 run_idle(current_time);
         }
     }
-    small_airport.shut_down(end_time);
+
+    takeoffStrip.shut_down(end_time);
+    landingStrip.shut_down(end_time);
 
     return 0;
 }
