@@ -25,16 +25,21 @@ Uses: Classes Runway, Plane, Random and functions run_idle, initialize. */
 
     initialize(end_time, queue_limit, arrival_rate, departure_rate);
     Random variable;
-    Runway small_airport(queue_limit);
+    // Two separate runways for both landing and takeoff
+    Runway landingStrip(queue_limit);
+    Runway takeoffStrip(queue_limit);
+
     for (int current_time = 0; current_time < end_time; current_time++) {
         // loop over time intervals
+
+        
         int number_arrivals = variable.poisson(arrival_rate);
         // current arrival requests
         for (int i = 0; i < number_arrivals; i++) {
     
-            Plane current_plane(flight_number++, current_time, arriving);
-            if (small_airport.can_land(current_plane) != success)
-                current_plane.refuse();
+            Plane landing_plane(flight_number++, current_time, arriving);
+            if (landingStrip.can_land(landing_plane) != success)
+                landing_plane.refuse();
         }
     
         int number_departures = variable.poisson(departure_rate);
@@ -42,26 +47,36 @@ Uses: Classes Runway, Plane, Random and functions run_idle, initialize. */
 
         for (int j = 0; j < number_departures; j++) {
                 
-            Plane current_plane(flight_number++, current_time, departing);
-            if (small_airport.can_depart(current_plane) != success)
-                current_plane.refuse();
+            Plane takeoff_plane(flight_number++, current_time, departing);
+            if (takeoffStrip.can_depart(takeoff_plane) != success)
+                takeoff_plane.refuse();
         }
         
-        Plane moving_plane;
+        Plane first_moving_plane;
+        Plane second_moving_plane;
 
-        switch (small_airport.activity(current_time, moving_plane)) {
-        // Let at most one Plane onto the Runway at current_time.
+        switch (landingStrip.landing_activity(current_time, first_moving_plane)) {
+        
             case land:
-                moving_plane.land(current_time);
+                first_moving_plane.land(current_time);
                 break;
+            case idle:
+                run_idle(current_time);
+        }
+
+        switch (takeoffStrip.takeoff_activity(current_time, second_moving_plane)) {
+
             case take_off:
-                moving_plane.fly(current_time);
+                second_moving_plane.fly(current_time);
                 break;
             case idle:
                 run_idle(current_time);
         }
     }
-    small_airport.shut_down(end_time);
+
+    std::cout << std::endl;
+    takeoffStrip.shut_down_takeoffs(end_time);
+    landingStrip.shut_down_landings(end_time);
 
     return 0;
 }
@@ -74,8 +89,8 @@ Post:   The program prints instructions and initializes the parameters end_time,
         queue_limit, arrival_rate, and departure_rate to the specified values.
 Uses:   utility function user_says_yes */
 {
-    std::cout << "This program simulates an airport with only one runway." << std::endl
-        << "One plane can land or depart in each unit of time." << std::endl;
+    std::cout << "This program simulates an airport with two runways." << std::endl
+        << "One plane can land and depart in each unit of time." << std::endl;
     std::cout << "Up to what number of planes can be waiting to land "
             << "or take off at any time? " << std::flush;
     std::cin >> queue_limit;
@@ -92,7 +107,7 @@ Uses:   utility function user_says_yes */
             std::cerr << "These rates must be nonnegative." << std::endl;
         else
             acceptable = true;
-        if (acceptable && arrival_rate + departure_rate > 1.0)
+        if (acceptable && arrival_rate + departure_rate > 2.0)
             std::cerr << "Safety Warning: This airport will become saturated. " << std::endl;
     } while (!acceptable);
 }

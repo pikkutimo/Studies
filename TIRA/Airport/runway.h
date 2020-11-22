@@ -13,7 +13,11 @@ class Runway {
         Error_code can_land(const Plane &current);
         Error_code can_depart(const Plane &current);
         Runway_activity activity(int time, Plane &moving);
+        Runway_activity landing_activity(int time, Plane &moving);
+        Runway_activity takeoff_activity(int time, Plane &moving);
         void shut_down(int time) const;
+        void shut_down_landings(int time) const;
+        void shut_down_takeoffs(int time) const;
     private:
         Extended_queue landing;
         Extended_queue takeoff;

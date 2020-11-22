@@ -11,3 +11,8 @@ Create the basic simulator from the book without any modification.
 
 Aim for such traffic density that the airport runs at its peak capacity. Run the simulation and 
 create text document of the results.
+
+## Two points
+
+Create version where there are separate runways for both landings and takeoffs. Compare the 
+performance with the previous version.

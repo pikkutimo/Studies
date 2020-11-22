@@ -1,0 +1,230 @@
+Up to what number of planes can be waiting to land or take off at any time? 5
+How many units of time will the simulation run?100
+Expected number of arrivals per unit time?1
+Expected number of departures per unit time?1
+Safety Warning: This airport will become saturated.
+Simulation has concluded after 100 time units.
+Total number of planes processed 203
+Total number of planes asking to land 101
+Total number of planes asking to take off 102
+Total number of planes accepted for landing 92
+Total number of planes accepted for takeoff 11
+Total number of planes refused for landing 9
+Total number of planes refused for takeoff 91
+Total number of planes that landed 92
+Total number of planes that took off 7
+Total number of planes left in landing queue 0
+Total number of planes left in takeoff queue 4
+Percentage of time runway idle 1%
+Average wait in landing queue 2.20652 time units
+Average wait in takeoff queue 35 time units
+Average observed rate of planes wanting to land 1.01 per time unit
+Average observed rate of planes wanting to take off 1.02 per time unit
+
+Up to what number of planes can be waiting to land or take off at any time? 10
+How many units of time will the simulation run?100
+Expected number of arrivals per unit time?1
+Expected number of departures per unit time?1
+Safety Warning: This airport will become saturated.
+Simulation has concluded after 100 time units.
+Total number of planes processed 203
+Total number of planes asking to land 101
+Total number of planes asking to take off 102
+Total number of planes accepted for landing 97
+Total number of planes accepted for takeoff 16
+Total number of planes refused for landing 4
+Total number of planes refused for takeoff 86
+Total number of planes that landed 93
+Total number of planes that took off 6
+Total number of planes left in landing queue 4
+Total number of planes left in takeoff queue 10
+Percentage of time runway idle 1%
+Average wait in landing queue 3.80645 time units
+Average wait in takeoff queue 30.8333 time units
+Average observed rate of planes wanting to land 1.01 per time unit
+Average observed rate of planes wanting to take off 1.02 per time unit
+
+Up to what number of planes can be waiting to land or take off at any time? 15
+How many units of time will the simulation run?100
+Expected number of arrivals per unit time?1
+Expected number of departures per unit time?1
+Safety Warning: This airport will become saturated.
+Simulation has concluded after 100 time units.
+Total number of planes processed 203
+Total number of planes asking to land 101
+Total number of planes asking to take off 102
+Total number of planes accepted for landing 101
+Total number of planes accepted for takeoff 21
+Total number of planes refused for landing 0
+Total number of planes refused for takeoff 81
+Total number of planes that landed 93
+Total number of planes that took off 6
+Total number of planes left in landing queue 8
+Total number of planes left in takeoff queue 15
+Percentage of time runway idle 1%
+Average wait in landing queue 4.2043 time units
+Average wait in takeoff queue 30.8333 time units
+Average observed rate of planes wanting to land 1.01 per time unit
+Average observed rate of planes wanting to take off 1.02 per time unit
+
+Up to what number of planes can be waiting to land or take off at any time? 20
+How many units of time will the simulation run?100
+Expected number of arrivals per unit time?1
+Expected number of departures per unit time?1
+Safety Warning: This airport will become saturated.
+Simulation has concluded after 100 time units.
+Total number of planes processed 203
+Total number of planes asking to land 101
+Total number of planes asking to take off 102
+Total number of planes accepted for landing 101
+Total number of planes accepted for takeoff 26
+Total number of planes refused for landing 0
+Total number of planes refused for takeoff 76
+Total number of planes that landed 93
+Total number of planes that took off 6
+Total number of planes left in landing queue 8
+Total number of planes left in takeoff queue 20
+Percentage of time runway idle 1%
+Average wait in landing queue 4.2043 time units
+Average wait in takeoff queue 30.8333 time units
+Average observed rate of planes wanting to land 1.01 per time unit
+Average observed rate of planes wanting to take off 1.02 per time unit
+
+Up to what number of planes can be waiting to land or take off at any time? 5
+How many units of time will the simulation run?100
+Expected number of arrivals per unit time?0.8
+Expected number of departures per unit time?0.8
+Safety Warning: This airport will become saturated.
+Simulation has concluded after 100 time units.
+Total number of planes processed 169
+Total number of planes asking to land 85
+Total number of planes asking to take off 84
+Total number of planes accepted for landing 85
+Total number of planes accepted for takeoff 22
+Total number of planes refused for landing 0
+Total number of planes refused for takeoff 62
+Total number of planes that landed 82
+Total number of planes that took off 17
+Total number of planes left in landing queue 3
+Total number of planes left in takeoff queue 5
+Percentage of time runway idle 1%
+Average wait in landing queue 0.841463 time units
+Average wait in takeoff queue 15.2941 time units
+Average observed rate of planes wanting to land 0.85 per time unit
+Average observed rate of planes wanting to take off 0.84 per time unit
+
+Up to what number of planes can be waiting to land or take off at any time? 10
+How many units of time will the simulation run?100
+Expected number of arrivals per unit time?0.8
+Expected number of departures per unit time?0.8
+Safety Warning: This airport will become saturated.
+Simulation has concluded after 100 time units.
+Total number of planes processed 169
+Total number of planes asking to land 85
+Total number of planes asking to take off 84
+Total number of planes accepted for landing 85
+Total number of planes accepted for takeoff 27
+Total number of planes refused for landing 0
+Total number of planes refused for takeoff 57
+Total number of planes that landed 82
+Total number of planes that took off 17
+Total number of planes left in landing queue 3
+Total number of planes left in takeoff queue 10
+Percentage of time runway idle 1%
+Average wait in landing queue 0.841463 time units
+Average wait in takeoff queue 24.4706 time units
+Average observed rate of planes wanting to land 0.85 per time unit
+Average observed rate of planes wanting to take off 0.84 per time unit
+
+Up to what number of planes can be waiting to land or take off at any time? 20
+How many units of time will the simulation run?100
+Expected number of arrivals per unit time?0.7
+Expected number of departures per unit time?0.7
+Safety Warning: This airport will become saturated.
+Simulation has concluded after 100 time units.
+Total number of planes processed 137
+Total number of planes asking to land 66
+Total number of planes asking to take off 71
+Total number of planes accepted for landing 66
+Total number of planes accepted for takeoff 53
+Total number of planes refused for landing 0
+Total number of planes refused for takeoff 18
+Total number of planes that landed 66
+Total number of planes that took off 33
+Total number of planes left in landing queue 0
+Total number of planes left in takeoff queue 20
+Percentage of time runway idle 1%
+Average wait in landing queue 0.424242 time units
+Average wait in takeoff queue 15.8788 time units
+Average observed rate of planes wanting to land 0.66 per time unit
+Average observed rate of planes wanting to take off 0.71 per time unit
+
+Up to what number of planes can be waiting to land or take off at any time? 20
+How many units of time will the simulation run?100
+Expected number of arrivals per unit time?0.65
+Expected number of departures per unit time?0.65
+Safety Warning: This airport will become saturated.
+Simulation has concluded after 100 time units.
+Total number of planes processed 129
+Total number of planes asking to land 58
+Total number of planes asking to take off 71
+Total number of planes accepted for landing 58
+Total number of planes accepted for takeoff 60
+Total number of planes refused for landing 0
+Total number of planes refused for takeoff 11
+Total number of planes that landed 58
+Total number of planes that took off 41
+Total number of planes left in landing queue 0
+Total number of planes left in takeoff queue 19
+Percentage of time runway idle 1%
+Average wait in landing queue 0.931035 time units
+Average wait in takeoff queue 13.1707 time units
+Average observed rate of planes wanting to land 0.58 per time unit
+Average observed rate of planes wanting to take off 0.71 per time unit
+
+One plane can land or depart in each unit of time.
+Up to what number of planes can be waiting to land or take off at any time? 20
+How many units of time will the simulation run?100
+Expected number of arrivals per unit time?0.60
+Expected number of departures per unit time?0.6
+Safety Warning: This airport will become saturated.
+Simulation has concluded after 100 time units.
+Total number of planes processed 112
+Total number of planes asking to land 59
+Total number of planes asking to take off 53
+Total number of planes accepted for landing 59
+Total number of planes accepted for takeoff 53
+Total number of planes refused for landing 0
+Total number of planes refused for takeoff 0
+Total number of planes that landed 59
+Total number of planes that took off 38
+Total number of planes left in landing queue 0
+Total number of planes left in takeoff queue 15
+Percentage of time runway idle 3%
+Average wait in landing queue 0.40678 time units
+Average wait in takeoff queue 10.4211 time units
+Average observed rate of planes wanting to land 0.59 per time unit
+Average observed rate of planes wanting to take off 0.53 per time unit
+
+Up to what number of planes can be waiting to land or take off at any time? 20
+How many units of time will the simulation run?100
+Expected number of arrivals per unit time?0.55
+Expected number of departures per unit time?0.55
+Safety Warning: This airport will become saturated.
+Simulation has concluded after 100 time units.
+Total number of planes processed 109
+Total number of planes asking to land 67
+Total number of planes asking to take off 42
+Total number of planes accepted for landing 67
+Total number of planes accepted for takeoff 42
+Total number of planes refused for landing 0
+Total number of planes refused for takeoff 0
+Total number of planes that landed 66
+Total number of planes that took off 31
+Total number of planes left in landing queue 1
+Total number of planes left in takeoff queue 11
+Percentage of time runway idle 3%
+Average wait in landing queue 0.515152 time units
+Average wait in takeoff queue 8.3871 time units
+Average observed rate of planes wanting to land 0.67 per time unit
+Average observed rate of planes wanting to take off 0.42 per time unit
