@@ -22,6 +22,7 @@ Uses: Classes Runway, Plane, Random and functions run_idle, initialize. */
     int queue_limit; // size of Runway queues
     int flight_number = 0;
     double arrival_rate, departure_rate;
+    bool takeoffsBanned = false;
 
     initialize(end_time, queue_limit, arrival_rate, departure_rate);
     Random variable;
@@ -40,6 +41,7 @@ Uses: Classes Runway, Plane, Random and functions run_idle, initialize. */
             Plane landing_plane(flight_number++, current_time, arriving);
             if (landingStrip.can_land(landing_plane) != success)
             {   
+                takeoffsBanned = true;
                 //If the landing queue is full, check if the other runways takeoff queue is empty
                 //-> if it is landing can be done through that runway
                 if (takeoffStrip.takeoff_queue_empty())
@@ -49,12 +51,16 @@ Uses: Classes Runway, Plane, Random and functions run_idle, initialize. */
                 else
                     landing_plane.refuse();
             }
+            else
+                takeoffsBanned = false;
         }
     
         int number_departures = variable.poisson(departure_rate);
         // current departure requests
 
-        for (int j = 0; j < number_departures; j++) {
+        if (takeoffsBanned == false)
+        {
+            for (int j = 0; j < number_departures; j++) {
                 
             Plane takeoff_plane(flight_number++, current_time, departing);
             if (takeoffStrip.can_depart(takeoff_plane) != success)
@@ -70,6 +76,7 @@ Uses: Classes Runway, Plane, Random and functions run_idle, initialize. */
             }    
                 
         }
+        }§
         
         Plane first_moving_plane;
         Plane second_moving_plane;

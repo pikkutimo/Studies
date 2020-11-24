@@ -1,4 +1,42 @@
-#include "list.h"
+#ifndef LIST_H
+#define LIST_H
+
+#include "utilities.h"
+#include <iostream>
+
+typedef int index;
+const int max_list = 10; //  small value for testing purposes
+
+
+template <class List_entry>
+class Node {
+public:
+   List_entry entry;
+   index next;
+};
+
+
+template <class List_entry>
+class List {
+public:
+//  Methods of the list ADT
+   List();
+   int size() const;
+   bool full() const;
+   bool empty() const;
+   void clear();
+   void traverse(void (*visit)(List_entry &));
+   Error_code retrieve(int position, List_entry &x) const;
+   Error_code replace(int position, const List_entry &x);
+   Error_code remove(int position, List_entry &x);
+   Error_code insert(int position, const List_entry &x);
+
+protected:
+//  Data members
+   Node<List_entry> workspace[max_list];
+   index available, head;
+   int count;
+};
 
 template <class List_entry>
 List<List_entry>::List()
@@ -140,19 +178,29 @@ Post: If the List is not full and 0 ≤ position ≤ n, where n is the number
 {
     if (this->full())
         return fail;
-    else if (position >= 0 && position < max_list)
+    else if (position >= this->count)
     {
-        List_entry temp;
-        temp = workspace[position].entry;
-        workspace[position].next = position + 1;
-
-        for (index n = position;  n < max_list; n++)
-        {
-            workspace[n].entry= x;
-            x = temp;
-
-        }
-        return success;
+        workspace[position].entry = x;
+        count++;
     }
-    
+    else
+    {
+        List_entry current = workspace[position].entry;
+        List_entry next;
+        workspace[position].entry = x;
+        position++;
+        count++;
+
+        while (position <= count)
+        {
+            next = workspace[position].entry;
+            workspace[position].entry = current;
+            current = next;
+            position++; 
+        }
+    }
+
+    return success;
 }
+
+#endif

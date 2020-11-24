@@ -16,3 +16,10 @@ create text document of the results.
 
 Create version where there are separate runways for both landings and takeoffs. Compare the 
 performance with the previous version.
+
+## Three points
+
+First enable landing on the takeoff runway while the takeoff queue is empty and vice versa.
+
+Secondly alter the functioning so that the moving planes have priority over planes that are
+taking off. While the landing strips queue is full, the takeoff strips is used only for landings.
