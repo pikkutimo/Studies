@@ -23,3 +23,8 @@ First enable landing on the takeoff runway while the takeoff queue is empty and 
 
 Secondly alter the functioning so that the moving planes have priority over planes that are
 taking off. While the landing strips queue is full, the takeoff strips is used only for landings.
+
+## Four points
+
+Add third runway. One runway is used for landings only, the second for takeoffs only and the third
+is mainly landings but when the landing queue is empty, takeoffs from the third are possible.
