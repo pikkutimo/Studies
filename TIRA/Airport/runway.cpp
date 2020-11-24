@@ -138,7 +138,8 @@ Uses: class Extended_queue. */
 void Runway::shut_down(int time) const
 /* Post: Runway usage statistics are summarized and printed. */
 {
-    std::cout << "Simulation has concluded after " << time << " time units." << std::endl
+    std::cout << "SECOND LANDING STRIP" << std::endl
+        << "Simulation has concluded after " << time << " time units." << std::endl
         << "Total number of planes processed "
         << (num_land_requests + num_takeoff_requests) << std::endl
         << "Total number of planes asking to land "

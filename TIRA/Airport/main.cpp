@@ -29,26 +29,19 @@ Uses: Classes Runway, Plane, Random and functions run_idle, initialize. */
     // Two separate runways for both landing and takeoff
     Runway landingStrip(queue_limit);
     Runway takeoffStrip(queue_limit);
+    Runway secondLandingStrip(queue_limit);
 
     for (int current_time = 0; current_time < end_time; current_time++) {
         // loop over time intervals
 
-        
         int number_arrivals = variable.poisson(arrival_rate);
         // current arrival requests
         for (int i = 0; i < number_arrivals; i++) {
     
             Plane landing_plane(flight_number++, current_time, arriving);
             if (landingStrip.can_land(landing_plane) != success)
-            {   
-                takeoffsBanned = true;
-                //If the landing queue is full
-                //-> All takeoffs are banned and the runway for takeoffs in converted into landing strip
-                if (takeoffStrip.can_land(landing_plane) != success)
+                if (secondLandingStrip.can_land(landing_plane) != success)
                     landing_plane.refuse();
-            }
-            else
-                takeoffsBanned = false;
         }
     
         int number_departures = variable.poisson(departure_rate);
@@ -57,70 +50,51 @@ Uses: Classes Runway, Plane, Random and functions run_idle, initialize. */
         for (int j = 0; j < number_departures; j++) {
                 
             Plane takeoff_plane(flight_number++, current_time, departing);
-
             if (takeoffStrip.can_depart(takeoff_plane) != success)
-            {
-                //If the takeoff queue is full, check if the other runways landing queue is empty
-                //-> if it is takeoff can be done through that runway
-                if (landingStrip.landing_queue_empty())
-                {
-                    landingStrip.can_depart(takeoff_plane);
-                }
-                else
+                if (secondLandingStrip.can_depart(takeoff_plane) != success)
                     takeoff_plane.refuse();
-            }
-        }    
                 
-
+        }
         
         Plane first_moving_plane;
         Plane second_moving_plane;
+        Plane third_moving_plane;
 
-        // For moving planes if the landing queue is full, the runway for takeoffs 
-        // stops all takeoffs and is used for landings only until the receiving
-        // queue can handle all moving planes
-        switch (landingStrip.landing_activity(current_time, first_moving_plane))
-        {
+        switch (landingStrip.landing_activity(current_time, first_moving_plane)) {
         
             case land:
                 first_moving_plane.land(current_time);
                 break;
-            case idle: //If idle can handle the other queue
-                if (takeoffStrip.takeoff_queue_empty() != false)
-                    second_moving_plane.land(current_time);
-                else
-                    run_idle(current_time);
+            case idle:
+                run_idle(current_time);
         }
 
-        if (takeoffsBanned || takeoffStrip.landing_queue_empty() == false)
-        {
-            switch (takeoffStrip.landing_activity(current_time, second_moving_plane))
-            {
-                case take_off:
-                    second_moving_plane.land(current_time);
-                    break;
-                case idle:
-                    run_idle(current_time);
-            }
+        switch (takeoffStrip.takeoff_activity(current_time, second_moving_plane)) {
+
+            case take_off:
+                second_moving_plane.fly(current_time);
+                break;
+            case idle:
+                run_idle(current_time);
         }
-        else
-        {
-            switch (takeoffStrip.takeoff_activity(current_time, second_moving_plane))
-            {
-                case take_off:
-                    second_moving_plane.fly(current_time);
-                    break;
-                case idle:
-                    run_idle(current_time);
-            }
+
+        switch (secondLandingStrip.activity(current_time, third_moving_plane)) {
+
+             case land:
+                third_moving_plane.land(current_time);
+                break;
+            case take_off:
+                third_moving_plane.fly(current_time);
+                break;
+            case idle:
+                run_idle(current_time);;
         }
-        
-        
     }
 
     std::cout << std::endl;
     takeoffStrip.shut_down_takeoffs(end_time);
     landingStrip.shut_down_landings(end_time);
+    secondLandingStrip.shut_down(end_time);
 
     return 0;
 }
