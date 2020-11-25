@@ -21,27 +21,47 @@ Uses: Classes Runway, Plane, Random and functions run_idle, initialize. */
     int end_time; // time to run simulation
     int queue_limit; // size of Runway queues
     int flight_number = 0;
+    // The amount fuel to reach alternative airport
+    int emergency_reserve = 3;
     double arrival_rate, departure_rate;
-    bool takeoffsBanned = false;
+    bool emergency_landing_possible;
 
     initialize(end_time, queue_limit, arrival_rate, departure_rate);
     Random variable;
-    // Two separate runways for both landing and takeoff
-    Runway landingStrip(queue_limit);
-    Runway takeoffStrip(queue_limit);
-    Runway secondLandingStrip(queue_limit);
+    Runway small_airport(queue_limit);
 
     for (int current_time = 0; current_time < end_time; current_time++) {
         // loop over time intervals
-
         int number_arrivals = variable.poisson(arrival_rate);
+        std::cout << number_arrivals << std::endl;
+        bool emergency_landing_possible = true;
         // current arrival requests
         for (int i = 0; i < number_arrivals; i++) {
     
-            Plane landing_plane(flight_number++, current_time, arriving);
-            if (landingStrip.can_land(landing_plane) != success)
-                if (secondLandingStrip.can_land(landing_plane) != success)
-                    landing_plane.refuse();
+            Plane current_plane(flight_number++, current_time, arriving);
+
+            // If the current plane can be added onto the landing queue
+            if (small_airport.can_land(current_plane) == success)
+            {
+                if (current_plane.checkFuel() == 1 && emergency_landing_possible)
+                {
+                    // In emergency, any plane can be allowed to land instantly once per time unit
+                    std::cout << "Emergency landing!" << std::endl;
+                    current_plane.land(current_time);
+                    emergency_landing_possible = false;
+                }   
+            }
+            else
+            {
+                if (current_plane.checkFuel() < emergency_reserve)
+                {
+                    small_airport.add_enroute_crashes();
+                    current_plane.hailmary();
+                }
+                else
+                    current_plane.refuse();
+            }
+            
         }
     
         int number_departures = variable.poisson(departure_rate);
@@ -49,52 +69,33 @@ Uses: Classes Runway, Plane, Random and functions run_idle, initialize. */
 
         for (int j = 0; j < number_departures; j++) {
                 
-            Plane takeoff_plane(flight_number++, current_time, departing);
-            if (takeoffStrip.can_depart(takeoff_plane) != success)
-                if (secondLandingStrip.can_depart(takeoff_plane) != success)
-                    takeoff_plane.refuse();
+            Plane current_plane(flight_number++, current_time, departing);
+            if (small_airport.can_depart(current_plane) != success)
+                current_plane.refuse();
+        }
+        
+        Plane moving_plane;
+
+        // If there hasn't been any emergency landings
+        // one plane is stil allowed to land.
+        if (emergency_landing_possible)
+        {
+            switch (small_airport.activity(current_time, moving_plane)) {
                 
+                case land:
+                    if (moving_plane.land(current_time))
+                        small_airport.add_crashes();
+                    break;
+                case take_off:
+                    moving_plane.fly(current_time);
+                    break;
+                case idle:
+                    run_idle(current_time);
+            }
         }
         
-        Plane first_moving_plane;
-        Plane second_moving_plane;
-        Plane third_moving_plane;
-
-        switch (landingStrip.landing_activity(current_time, first_moving_plane)) {
-        
-            case land:
-                first_moving_plane.land(current_time);
-                break;
-            case idle:
-                run_idle(current_time);
-        }
-
-        switch (takeoffStrip.takeoff_activity(current_time, second_moving_plane)) {
-
-            case take_off:
-                second_moving_plane.fly(current_time);
-                break;
-            case idle:
-                run_idle(current_time);
-        }
-
-        switch (secondLandingStrip.activity(current_time, third_moving_plane)) {
-
-             case land:
-                third_moving_plane.land(current_time);
-                break;
-            case take_off:
-                third_moving_plane.fly(current_time);
-                break;
-            case idle:
-                run_idle(current_time);;
-        }
     }
-
-    std::cout << std::endl;
-    takeoffStrip.shut_down_takeoffs(end_time);
-    landingStrip.shut_down_landings(end_time);
-    secondLandingStrip.shut_down(end_time);
+    small_airport.shut_down(end_time);
 
     return 0;
 }
