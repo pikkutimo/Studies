@@ -9,7 +9,7 @@ and to record the limit on queue sizes. */
     num_landings = num_takeoffs = 0;
     num_land_refused = num_takeoff_refused = 0;
     num_land_accepted = num_takeoff_accepted = 0;
-    land_wait = takeoff_wait = idle_time = 0;
+    land_wait = takeoff_wait = idle_time = num_crashes = 0;
 }
 
 Error_code Runway::can_land(const Plane &current)
@@ -138,7 +138,7 @@ Uses: class Extended_queue. */
 void Runway::shut_down(int time) const
 /* Post: Runway usage statistics are summarized and printed. */
 {
-    std::cout << "SECOND LANDING STRIP" << std::endl
+    std::cout << "SMALL AIRPORT" << std::endl
         << "Simulation has concluded after " << time << " time units." << std::endl
         << "Total number of planes processed "
         << (num_land_requests + num_takeoff_requests) << std::endl
@@ -152,10 +152,14 @@ void Runway::shut_down(int time) const
         << num_takeoff_accepted << std::endl
         << "Total number of planes refused for landing "
         << num_land_refused << std::endl
+        << "Total number of planes crashing after refused for landing "
+        << num_enroute_crashes << std::endl
         << "Total number of planes refused for takeoff "
         << num_takeoff_refused << std::endl
         << "Total number of planes that landed "
         << num_landings << std::endl
+        << "Total number of crashes on the field "
+        << num_crashes << std::endl 
         << "Total number of planes that took off "
         << num_takeoffs << std::endl
         << "Total number of planes left in landing queue "
@@ -240,4 +244,14 @@ bool Runway::takeoff_queue_empty() const
 // Post: Returns true if queue empty
 {
     return takeoff.empty();
+}
+
+void Runway::add_enroute_crashes()
+{
+    num_enroute_crashes++;
+}
+
+void Runway::add_crashes()
+{
+    num_crashes++;
 }

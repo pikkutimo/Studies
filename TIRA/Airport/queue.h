@@ -7,7 +7,7 @@
 
 typedef Plane Queue_entry; 
 
-const int maxqueue = 20; //  small value for testing
+const int maxqueue = 50; //  small value for testing
 
 class Queue {
 public:

@@ -28,3 +28,16 @@ taking off. While the landing strips queue is full, the takeoff strips is used o
 
 Add third runway. One runway is used for landings only, the second for takeoffs only and the third
 is mainly landings but when the landing queue is empty, takeoffs from the third are possible.
+
+## Five points
+
+Airport has only one runway. Every arriving plane has random amount of fuel left nut always enough
+that it could land immediately.
+
+If plane in the landing queue is running out of fuel, it is granted emergency access to the runway.
+However this leads to longer wait times for the planes in the landing queue and they could drop 
+from the sky when their fuel runs out. This can be handled during landing by checking the fuel
+situation, if it has run out, the plane will be registered as crash.
+
+The planes turned away suffer from the same problem. There should be a certain, predefined amount
+of fuel in their tanks in order that they can safely reach the alternative airport or -field.
